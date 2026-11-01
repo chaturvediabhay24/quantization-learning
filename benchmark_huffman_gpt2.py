@@ -93,9 +93,10 @@ def evaluate(model, tokenizer, device, seq_len: int, max_tokens: int | None) -> 
     if max_tokens:
         ids = ids[:max_tokens]
     ids = ids.to(device)
-    model.eval(); total_loss = 0.0; total_count = 0
+    model.eval(); total_loss = None; total_count = 0
     with torch.inference_mode():
-        for start in range(0, ids.numel() - 1, seq_len):
+        chunk_count = (ids.numel() - 2) // seq_len + 1
+        for chunk_index, start in enumerate(range(0, ids.numel() - 1, seq_len), start=1):
             end = min(start + seq_len, ids.numel() - 1)
             inp = ids[start:end].unsqueeze(0)
             labels = ids[start + 1:end + 1].unsqueeze(0)
@@ -103,8 +104,15 @@ def evaluate(model, tokenizer, device, seq_len: int, max_tokens: int | None) -> 
             loss = torch.nn.functional.cross_entropy(
                 logits.reshape(-1, logits.size(-1)), labels.reshape(-1), reduction="sum"
             )
-            total_loss += float(loss); total_count += labels.numel()
-    return math.exp(total_loss / total_count)
+            total_loss = loss if total_loss is None else total_loss + loss
+            total_count += labels.numel()
+            # Keep the MPS command queue bounded. A single final synchronization
+            # can retain resources for the whole test set on unified memory.
+            if device.type == "mps" and (chunk_index % 32 == 0 or chunk_index == chunk_count):
+                torch.mps.synchronize()
+            if chunk_index % 32 == 0 or chunk_index == chunk_count:
+                print(f"evaluation progress: {chunk_index}/{chunk_count} chunks", flush=True)
+    return math.exp(float(total_loss) / total_count)
 
 
 def main():
@@ -135,13 +143,18 @@ def main():
             raise ValueError("Existing results.json does not match this model/evaluation protocol; use a separate --output directory")
         completed = {float(row["bin_width"]): row for row in previous.get("results", [])}
     tokenizer = AutoTokenizer.from_pretrained(args.model, revision=args.revision)
-    source = AutoModelForCausalLM.from_pretrained(args.model, revision=args.revision, torch_dtype=torch.float32)
-    device = torch.device(args.device); source.to(device)
-    resolved_revision = getattr(source.config, "_commit_hash", None) or args.revision
-    baseline = evaluate(source, tokenizer, device, args.seq_len, args.max_tokens)
-    del source
-    if device.type == "mps":
-        torch.mps.empty_cache()
+    device = torch.device(args.device)
+    if previous and "baseline_perplexity" in previous and previous.get("resolved_revision"):
+        baseline = float(previous["baseline_perplexity"])
+        resolved_revision = previous["resolved_revision"]
+    else:
+        source = AutoModelForCausalLM.from_pretrained(args.model, revision=args.revision, torch_dtype=torch.float32)
+        source.to(device)
+        resolved_revision = getattr(source.config, "_commit_hash", None) or args.revision
+        baseline = evaluate(source, tokenizer, device, args.seq_len, args.max_tokens)
+        del source
+        if device.type == "mps":
+            torch.mps.empty_cache()
     rows = []
     for width in args.widths:
         if args.resume and float(width) in completed:

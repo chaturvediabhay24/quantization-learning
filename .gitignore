@@ -15,4 +15,5 @@ custom-quantization/runs/
 *.safetensors
 *.npz
 *.zip
+*.i32
 *.before-inference

@@ -1,0 +1,36 @@
+{
+  "model": "Qwen/Qwen3-1.7B-Base",
+  "resolved_revision": "ea980cb0a6c2ae4b936e82123acc929f1cec04c1",
+  "dataset": "Salesforce/wikitext, wikitext-2-raw-v1, test",
+  "sequence_length": 1024,
+  "max_tokens": null,
+  "baseline_perplexity": 10.422098002340945,
+  "results": [
+    {
+      "bin_width": 0.0003,
+      "baseline_perplexity": 10.422098002340945,
+      "quantized_perplexity": 10.422954036356286,
+      "weight_mae_vs_fp32": 7.508701540929868e-05,
+      "weight_mse_vs_fp32": 7.518934457407263e-09,
+      "weight_max_abs_error_vs_fp32": 0.000152587890625,
+      "actual_encoded_bytes": 1904220504,
+      "huffman_payload_bits": 15232922556,
+      "weights": 1720574976,
+      "occupied_bins": 2247,
+      "artifact": "research-results/model-expansion/qwen3-1.7b-base/qwen3-1.7b-base-huffman-0.0003.zip"
+    },
+    {
+      "bin_width": 0.001,
+      "baseline_perplexity": 10.422098002340945,
+      "quantized_perplexity": 10.46161116535569,
+      "weight_mae_vs_fp32": 0.0002499061423824885,
+      "weight_mse_vs_fp32": 8.334974121319638e-08,
+      "weight_max_abs_error_vs_fp32": 0.0005035400390625,
+      "actual_encoded_bytes": 1552038471,
+      "huffman_payload_bits": 12415580890,
+      "weights": 1720574976,
+      "occupied_bins": 1817,
+      "artifact": "research-results/model-expansion/qwen3-1.7b-base/qwen3-1.7b-base-huffman-0.001.zip"
+    }
+  ]
+}
