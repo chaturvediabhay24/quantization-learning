@@ -57,6 +57,19 @@
       "weights": 1720574976,
       "occupied_bins": 1306,
       "artifact": "research-results/model-expansion/qwen3-1.7b-base/qwen3-1.7b-base-huffman-0.004.zip"
+    },
+    {
+      "bin_width": 0.008,
+      "baseline_perplexity": 10.422098002340945,
+      "quantized_perplexity": 14.019009092713636,
+      "weight_mae_vs_fp32": 0.002000123273157333,
+      "weight_mse_vs_fp32": 5.33363300009988e-06,
+      "weight_max_abs_error_vs_fp32": 0.0040130615234375,
+      "actual_encoded_bytes": 908771903,
+      "huffman_payload_bits": 7269617642,
+      "weights": 1720574976,
+      "occupied_bins": 1079,
+      "artifact": "research-results/model-expansion/qwen3-1.7b-base/qwen3-1.7b-base-huffman-0.008.zip"
     }
   ]
 }
