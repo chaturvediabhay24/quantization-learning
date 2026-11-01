@@ -123,12 +123,17 @@ def main():
     p.add_argument("--resume", action="store_true",
                    help="Skip widths already recorded in results.json and checkpoint after each completed width")
     p.add_argument("--revision", default="main")
+    p.add_argument("--dtype", choices=("float32", "float16", "bfloat16"), default="float32",
+                   help="Source checkpoint load dtype; distortion metrics compare against these loaded weights")
     p.add_argument("--widths", type=float, nargs="+", default=[0.001, 0.002, 0.004, 0.008])
     p.add_argument("--output", type=Path, default=Path("research-results/gpt2-huffman-sweep"))
     p.add_argument("--seq-len", type=int, default=512)
     p.add_argument("--max-tokens", type=int, default=None, help="Optional smoke-test cap; omit for full WikiText-2 test split")
     p.add_argument("--device", default="mps" if torch.backends.mps.is_available() else "cpu")
     args = p.parse_args()
+    source_dtype = {"float32": torch.float32, "float16": torch.float16,
+                    "bfloat16": torch.bfloat16}[args.dtype]
+    dtype_name = args.dtype
     args.output.mkdir(parents=True, exist_ok=True)
     artifact_model = args.model_id or args.model
     model_slug = re.sub(r"[^A-Za-z0-9._-]+", "-", artifact_model.rstrip("/").split("/")[-1]).lower()
@@ -139,7 +144,8 @@ def main():
         if (previous.get("model") != artifact_model
                 or previous.get("dataset") != "Salesforce/wikitext, wikitext-2-raw-v1, test"
                 or previous.get("sequence_length") != args.seq_len
-                or previous.get("max_tokens") != args.max_tokens):
+                or previous.get("max_tokens") != args.max_tokens
+                or previous.get("weight_reference_dtype", "float32") != dtype_name):
             raise ValueError("Existing results.json does not match this model/evaluation protocol; use a separate --output directory")
         completed = {float(row["bin_width"]): row for row in previous.get("results", [])}
     tokenizer = AutoTokenizer.from_pretrained(args.model, revision=args.revision)
@@ -148,7 +154,7 @@ def main():
         baseline = float(previous["baseline_perplexity"])
         resolved_revision = previous["resolved_revision"]
     else:
-        source = AutoModelForCausalLM.from_pretrained(args.model, revision=args.revision, torch_dtype=torch.float32)
+        source = AutoModelForCausalLM.from_pretrained(args.model, revision=args.revision, torch_dtype=source_dtype)
         source.to(device)
         resolved_revision = getattr(source.config, "_commit_hash", None) or args.revision
         baseline = evaluate(source, tokenizer, device, args.seq_len, args.max_tokens)
@@ -160,7 +166,7 @@ def main():
         if args.resume and float(width) in completed:
             print(json.dumps({"status": "already-complete", "bin_width": width}), flush=True)
             continue
-        model = AutoModelForCausalLM.from_pretrained(args.model, revision=args.revision, torch_dtype=torch.float32)
+        model = AutoModelForCausalLM.from_pretrained(args.model, revision=args.revision, torch_dtype=source_dtype)
         tensor_metadata = {}
         abs_error = squared_error = max_error = 0.0
         parameter_count = sum(t.numel() for _, t in model.named_parameters())
@@ -203,14 +209,15 @@ def main():
         del model
         # Include codebook and tensor map in the measured artifact.
         manifest = {"model": artifact_model, "revision": resolved_revision, "bin_width": width,
+                    "weight_reference_dtype": dtype_name,
                     "rounding": "floor(value / width), reconstruct at (bin + 0.5) * width",
                     "symbols": sorted(map(int, frequencies)),
                     "symbol_frequencies": {str(k): int(v) for k, v in frequencies.items()},
                     "huffman_code_lengths": {str(k): int(v) for k, v in lengths.items()},
                     "tensor_order": list(tensor_metadata), "tensors": tensor_metadata,
-                    "weight_mae_vs_fp32": abs_error / parameter_count,
-                    "weight_mse_vs_fp32": squared_error / parameter_count,
-                    "weight_max_abs_error_vs_fp32": max_error,
+                    "weight_mae_vs_source": abs_error / parameter_count,
+                    "weight_mse_vs_source": squared_error / parameter_count,
+                    "weight_max_abs_error_vs_source": max_error,
                     "huffman_payload_bits": bits, "padding_bits": (-bits) % 8}
         manifest_path = args.output / f"manifest-{width:g}.json"
         manifest_path.write_text(json.dumps(manifest, separators=(",", ":")))
@@ -218,9 +225,10 @@ def main():
         with zipfile.ZipFile(archive, "w", compression=zipfile.ZIP_STORED) as z:
             z.write(stream_path, "stream.bin"); z.write(manifest_path, "manifest.json")
         row = {"bin_width": width, "baseline_perplexity": baseline, "quantized_perplexity": ppl,
-               "weight_mae_vs_fp32": abs_error / parameter_count,
-               "weight_mse_vs_fp32": squared_error / parameter_count,
-               "weight_max_abs_error_vs_fp32": max_error,
+               "weight_reference_dtype": dtype_name,
+               "weight_mae_vs_source": abs_error / parameter_count,
+               "weight_mse_vs_source": squared_error / parameter_count,
+               "weight_max_abs_error_vs_source": max_error,
                "actual_encoded_bytes": archive.stat().st_size, "huffman_payload_bits": bits,
                "weights": int(flat.size), "occupied_bins": len(frequencies),
                "artifact": str(archive)}
@@ -231,6 +239,7 @@ def main():
         snapshot_rows = {float(r["bin_width"]): r for r in completed.values()}
         snapshot_rows.update({float(r["bin_width"]): r for r in rows})
         result = {"model": artifact_model, "resolved_revision": resolved_revision,
+                  "weight_reference_dtype": dtype_name,
                   "dataset": "Salesforce/wikitext, wikitext-2-raw-v1, test",
                   "sequence_length": args.seq_len, "max_tokens": args.max_tokens,
                   "baseline_perplexity": baseline,
