@@ -1,0 +1,68 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "GPTQ",
+  "format": "GPTQModel native MLX-LM quantized checkpoint",
+  "bits": 4,
+  "group_size": 128,
+  "device": "Apple Silicon MLX/Metal",
+  "calibration_dataset": "WikiText-2 raw train split",
+  "calibration_sequence_length": 1024,
+  "calibration_samples": 128,
+  "calibration_seed": 2026,
+  "status": "complete",
+  "calibration_token_count": 131072,
+  "calibration_token_ids_sha256": "769cb36f7b2c55e930890552d3d9c91c0f442c5c06405b62eb3609905f500ba4",
+  "quantize_and_save_seconds": 265.07139587501297,
+  "test_tokens": 286177,
+  "evaluation_sequence_length": 1024,
+  "evaluation_token_ids_sha256": "7892b371a41e15356847c03c77abbd2b9d0dee5714aeb92a0013412fa045405e",
+  "perplexity": 35.58750669494348,
+  "predictions_scored": 286176,
+  "evaluation_seconds": 144.7639541249955,
+  "artifact_bytes": 86319409,
+  "effective_bits_per_weight": 5.549311615781343,
+  "artifact_files": [
+    {
+      "path": "model.safetensors",
+      "bytes": 82745451
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 314
+    },
+    {
+      "path": "config.json",
+      "bytes": 1236
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 3557680
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 124
+    },
+    {
+      "path": "README.md",
+      "bytes": 81
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "bytes": 14523
+    }
+  ],
+  "native_directory_bytes": 86319409,
+  "native_directory_effective_bits_per_weight": 5.549311615781343,
+  "packaged_artifact": "research-results/calibrated-baselines/gpt2-gptq-int4-g128-mlx-full.zip",
+  "packaged_artifact_bytes": 86320207,
+  "packaged_effective_bits_per_weight": 5.549362917692705,
+  "packaging": "ZIP_STORED",
+  "weight_mae_vs_fp32": 0.00980140278081899,
+  "weight_mse_vs_fp32": 0.00021233041189720227,
+  "weight_rmse_vs_fp32": 0.014571561752166522,
+  "weight_max_abs_error_vs_fp32": 1.4730689525604248,
+  "quantized_4bit_weight_mae": 0.009810969673626126,
+  "quantized_4bit_weight_mse": 0.00021253766205677033,
+  "weight_distortion_report": "research-results/calibrated-baselines/gpt2-gptq-int4-g128-mlx-distortion.json"
+}

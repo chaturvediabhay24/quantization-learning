@@ -1,0 +1,60 @@
+{
+  "status": "complete",
+  "widths": [
+    0.0003,
+    0.001,
+    0.002,
+    0.004,
+    0.008,
+    0.012
+  ],
+  "completed": [
+    {
+      "width": 0.0003,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.0003-logit-parity.json",
+      "logits_bitwise_equal": true,
+      "max_abs_logit_difference": 0.0
+    },
+    {
+      "width": 0.001,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.001-logit-parity.json",
+      "logits_bitwise_equal": true,
+      "max_abs_logit_difference": 0.0
+    },
+    {
+      "width": 0.002,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.002-logit-parity.json",
+      "logits_bitwise_equal": true,
+      "max_abs_logit_difference": 0.0
+    },
+    {
+      "width": 0.004,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.004-logit-parity.json",
+      "logits_bitwise_equal": true,
+      "max_abs_logit_difference": 0.0
+    },
+    {
+      "width": 0.008,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.008-logit-parity.json",
+      "logits_bitwise_equal": true,
+      "max_abs_logit_difference": 0.0
+    },
+    {
+      "width": 0.012,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.012-logit-parity.json",
+      "logits_bitwise_equal": true,
+      "max_abs_logit_difference": 0.0
+    }
+  ],
+  "elapsed_seconds": 400.0165892500081,
+  "source_tensors": 148,
+  "weights": 124439808,
+  "sample_tokens": [
+    464,
+    3290,
+    318,
+    257
+  ],
+  "current_width": 0.012,
+  "total_seconds": 400.0165832079947
+}

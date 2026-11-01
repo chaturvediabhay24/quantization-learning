@@ -1,0 +1,16 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "GPTQ INT4 group-128",
+  "attempt": 1,
+  "status": "failed before model load",
+  "error": "GPTQModel.load received a pathlib.Path, but this API expects a string path or model ID.",
+  "quantization_or_quality_result": null,
+  "environment": {
+    "python": "3.12",
+    "gptqmodel": "7.7.0",
+    "transformers": "5.22.1",
+    "torch": "2.15.0",
+    "device": "Apple MPS available"
+  }
+}

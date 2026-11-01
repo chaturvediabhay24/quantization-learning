@@ -1,0 +1,18 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "INT4 group-128 symmetric RTN; retain only tied token embedding in FP32",
+  "keep_1d": false,
+  "keep_embedding": true,
+  "keep_final_layernorm": false,
+  "exempt_tensors": [
+    "transformer.wte.weight"
+  ],
+  "quantized_parameters": 85842432,
+  "fp32_parameters": 38597376,
+  "tokens": 286177,
+  "sequence_length": 1024,
+  "perplexity": 80.13615035783829,
+  "estimated_bits_per_weight": 12.770962038128506,
+  "storage_estimate_note": "Payload estimate from 4-bit packed codes, FP16 group scales, and FP32 exempt tensors; not measured from a serialized artifact."
+}

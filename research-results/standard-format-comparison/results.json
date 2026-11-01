@@ -1,0 +1,71 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "dataset": "Salesforce/wikitext / wikitext-2-raw-v1 / test",
+  "tokens": 286177,
+  "sequence_length": 1024,
+  "baseline_perplexity": 29.01801909205378,
+  "quantization_note": "INT8 and INT4 are explicit RTN format baselines, not GPTQ/AWQ.",
+  "results": [
+    {
+      "format": "bf16",
+      "perplexity": 28.978982294431802,
+      "baseline_perplexity": 29.01801909205378,
+      "delta_perplexity": -0.039036797621978536,
+      "artifact_bytes": 248895835,
+      "effective_bits_per_weight": 16.00104268884761,
+      "weight_mae_vs_fp32": 0.00014635254390257487,
+      "weight_mse_vs_fp32": 5.2096073039467314e-08,
+      "weight_max_abs_error_vs_fp32": 0.04431724548339844,
+      "nominal_weight_bits_per_weight": 16,
+      "scale_bytes": 0,
+      "occupied_weights": 124439808,
+      "artifact": "research-results/standard-format-comparison/gpt2-bf16.zip"
+    },
+    {
+      "format": "fp16",
+      "perplexity": 29.02240574379117,
+      "baseline_perplexity": 29.01801909205378,
+      "delta_perplexity": 0.004386651737391389,
+      "artifact_bytes": 248895838,
+      "effective_bits_per_weight": 16.001042881711935,
+      "weight_mae_vs_fp32": 1.7953703583926982e-05,
+      "weight_mse_vs_fp32": 7.806366144752741e-10,
+      "weight_max_abs_error_vs_fp32": 0.007045745849609375,
+      "nominal_weight_bits_per_weight": 16,
+      "scale_bytes": 0,
+      "occupied_weights": 124439808,
+      "artifact": "research-results/standard-format-comparison/gpt2-fp16.zip"
+    },
+    {
+      "format": "int4-g128",
+      "perplexity": 8612.721894889828,
+      "baseline_perplexity": 29.01801909205378,
+      "delta_perplexity": 8583.703875797773,
+      "artifact_bytes": 64180656,
+      "effective_bits_per_weight": 4.126053039233233,
+      "weight_mae_vs_fp32": 0.013819389263436462,
+      "weight_mse_vs_fp32": 0.0002987423884551408,
+      "weight_max_abs_error_vs_fp32": 1.244067668914795,
+      "nominal_weight_bits_per_weight": 4,
+      "scale_bytes": 1944372,
+      "occupied_weights": 124439808,
+      "artifact": "research-results/standard-format-comparison/gpt2-int4-g128.zip"
+    },
+    {
+      "format": "int8-rowwise",
+      "perplexity": 30.681248527510625,
+      "baseline_perplexity": 29.01801909205378,
+      "delta_perplexity": 1.663229435456845,
+      "artifact_bytes": 124724831,
+      "effective_bits_per_weight": 8.01832358982746,
+      "weight_mae_vs_fp32": 0.0010548562305075964,
+      "weight_mse_vs_fp32": 2.0706296765509024e-06,
+      "weight_max_abs_error_vs_fp32": 0.06898760795593262,
+      "nominal_weight_bits_per_weight": 8,
+      "scale_bytes": 268646,
+      "occupied_weights": 124439808,
+      "artifact": "research-results/standard-format-comparison/gpt2-int8-rowwise.zip"
+    }
+  ]
+}

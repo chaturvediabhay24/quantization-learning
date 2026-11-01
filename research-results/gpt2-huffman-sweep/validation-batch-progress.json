@@ -1,0 +1,48 @@
+{
+  "status": "complete",
+  "batch_started_utc": "2026-10-31T18:00:26.619423+00:00",
+  "already_validated_widths": [
+    0.0003,
+    0.002,
+    0.012
+  ],
+  "widths_in_batch": [
+    0.001,
+    0.004,
+    0.008
+  ],
+  "completed": [
+    {
+      "width": 0.001,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.001-validation.json",
+      "weights_validated": 124439808,
+      "occupied_symbols": 4993,
+      "payload_bits": 1135257659,
+      "max_reconstruction_difference_vs_expected": 0.0,
+      "round_trip": "passed"
+    },
+    {
+      "width": 0.004,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.004-validation.json",
+      "weights_validated": 124439808,
+      "occupied_symbols": 1756,
+      "payload_bits": 886402019,
+      "max_reconstruction_difference_vs_expected": 0.0,
+      "round_trip": "passed"
+    },
+    {
+      "width": 0.008,
+      "report": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.008-validation.json",
+      "weights_validated": 124439808,
+      "occupied_symbols": 1053,
+      "payload_bits": 762020575,
+      "max_reconstruction_difference_vs_expected": 0.0,
+      "round_trip": "passed"
+    }
+  ],
+  "elapsed_seconds": 275.78289370800485,
+  "current_width": 0.008,
+  "current_artifact": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.008.zip",
+  "current_started_utc": "2026-10-31T18:09:37.829158+00:00",
+  "completed_utc": "2026-10-31T18:10:18.457660+00:00"
+}

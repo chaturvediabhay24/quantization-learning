@@ -1,0 +1,17 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "INT4 group-128 symmetric RTN; retain final layer norm weight and bias in FP32",
+  "keep_1d": false,
+  "keep_embedding": false,
+  "keep_final_layernorm": true,
+  "exempt_tensors": [
+    "transformer.ln_f.weight",
+    "transformer.ln_f.bias"
+  ],
+  "quantized_parameters": 124438272,
+  "fp32_parameters": 1536,
+  "tokens": 286177,
+  "sequence_length": 1024,
+  "perplexity": 9110.916053153049
+}

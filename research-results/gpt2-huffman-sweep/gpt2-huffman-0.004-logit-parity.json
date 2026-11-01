@@ -1,0 +1,20 @@
+{
+  "artifact": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.004.zip",
+  "bin_width": 0.004,
+  "status": "complete",
+  "weights_decoded": 124439808,
+  "occupied_symbols": 1756,
+  "sample_sequence_length": 4,
+  "logits_shape": [
+    1,
+    4,
+    50257
+  ],
+  "direct_logits_sha256": "1de89183291357d4ee9293f8ce93750e18a4eb71d65ff3b655b564f47c92b0e4",
+  "decoded_logits_sha256": "1de89183291357d4ee9293f8ce93750e18a4eb71d65ff3b655b564f47c92b0e4",
+  "logits_bitwise_equal": true,
+  "max_abs_logit_difference": 0.0,
+  "mean_abs_logit_difference": 0.0,
+  "logit_parity": "passed",
+  "elapsed_seconds": 73.87427245901199
+}

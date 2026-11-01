@@ -1,0 +1,17 @@
+{
+  "artifact": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.001.zip",
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "weights_validated": 124439808,
+  "occupied_symbols": 4993,
+  "payload_bits": 1135257659,
+  "padding_bits": 5,
+  "max_reconstruction_difference_vs_expected": 0.0,
+  "sample_logits_finite": true,
+  "sample_logits_shape": [
+    1,
+    4,
+    50257
+  ],
+  "round_trip": "passed"
+}

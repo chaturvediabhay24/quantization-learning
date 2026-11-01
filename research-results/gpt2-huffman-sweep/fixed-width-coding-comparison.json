@@ -1,0 +1,22 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "bin_width": 0.002,
+  "weights": 124439808,
+  "occupied_bins": 2958,
+  "identical_bin_ids": true,
+  "quality_metric_note": "Decoded bin IDs and reconstructed weights are identical, so model perplexity is unchanged by the code assignment.",
+  "huffman": {
+    "payload_bits": 1010833743,
+    "archive_bytes": 126444954,
+    "effective_bits_per_weight": 8.128907045565354
+  },
+  "fixed_width": {
+    "code_width_bits": 12,
+    "payload_bits": 1493277696,
+    "archive_bytes": 186735952,
+    "effective_bits_per_weight": 12.004901325466525,
+    "artifact": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.002-fixed-width.zip"
+  },
+  "archive_size_reduction_vs_fixed_width_percent": 32.28676500388099
+}

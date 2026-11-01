@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f4f7f8" />
+    <title>Custom Quantization Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/styles.css?v=5" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Custom Quantization Lab home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span>quant<span class="brand-light">lab</span></span>
+        </a>
+        <div class="topbar-meta"><span class="live-dot"></span><span>LOCAL ANALYSIS</span><span class="topbar-divider"></span><span>v0.2</span></div>
+      </header>
+
+      <main>
+        <section class="intro-row">
+          <div>
+            <div class="eyebrow"><span class="eyebrow-line"></span> WEIGHT COMPRESSION PLAYGROUND</div>
+            <h1>See what each bin <em>costs.</em></h1>
+            <p class="intro-copy">Measure reconstruction and storage trade-offs without running inference.</p>
+          </div>
+        <div class="dataset-chip"><span class="dataset-icon">W</span><span><strong id="dataset-title">Tiny GPT-2</strong><small id="dataset-subtitle">Loading model weights…</small></span><span class="chip-caret">↗</span></div>
+        </section>
+
+        <nav class="view-switch" aria-label="Dashboard view">
+          <button class="view-switch-button active" type="button" data-view-target="weight-view" aria-pressed="true">Bundled weights</button>
+          <button class="view-switch-button" type="button" data-view-target="real-model-view" aria-pressed="false">Real checkpoints</button>
+        </nav>
+
+        <section class="workspace-grid" id="weight-view">
+          <aside class="control-panel panel">
+            <div class="panel-heading"><div><div class="section-kicker">01 / QUANTIZER</div><h2>Bin settings</h2></div><span class="tune-icon">⌁</span></div>
+
+            <label class="field-label scope-label" for="tensor-select">Model scope <span>↕</span></label>
+            <div class="select-wrap"><select id="tensor-select" aria-label="Select full model or an individual tensor"><option value="__all__">Loading model tensors…</option></select><span class="select-caret">⌄</span></div>
+            <p class="scope-summary" id="scope-summary">Choose the full model or one learned tensor.</p>
+
+            <label class="field-label" for="bin-width">Bin width <span>Δ</span></label>
+            <div class="number-wrap"><input id="bin-width" type="number" min="0.000000001" max="1" step="any" value="0.00035712" /><span class="number-unit">FP32</span></div>
+            <div class="slider-caption"><span>Fine</span><span id="width-multiple">128× reference</span><span>Coarse</span></div>
+            <input id="bin-slider" class="range-slider" type="range" min="0" max="1000" value="711" aria-label="Adjust bin width logarithmically" />
+            <div class="range-labels"><span>1e-7</span><span>1e-2</span></div>
+
+            <div class="control-rule merge-rule"></div>
+            <label class="field-label merge-label" for="rare-bin-count">Merge least frequent bins <span>K</span></label>
+            <div class="number-wrap"><input id="rare-bin-count" type="number" min="0" max="100000" step="1" value="0" /><span class="number-unit">bins</span></div>
+            <p class="control-note">Pool the K lowest-frequency occupied bins into one shared bucket. Set K to 0 to turn this off.</p>
+            <div class="merge-summary" id="merge-summary">No rare bins are pooled.</div>
+            <details class="merge-details" id="merge-details" hidden>
+              <summary>Preview pooled source bins</summary>
+              <ul id="merged-bin-preview"></ul>
+              <p id="merged-preview-note"></p>
+            </details>
+
+            <div class="control-rule merge-rule"></div>
+            <label class="field-label scope-label" for="coding-method">Coding method <span>↕</span></label>
+            <div class="select-wrap"><select id="coding-method" aria-label="Select a variable-length coding method"><option value="huffman">Huffman</option><option value="unary">Unary</option></select><span class="select-caret">⌄</span></div>
+            <p class="control-note" id="coding-method-note">Huffman builds optimal binary prefix codes from bucket frequencies.</p>
+
+            <label class="field-label merge-label" for="max-code-length">Max code length <span>L</span></label>
+            <div class="number-wrap"><input id="max-code-length" type="number" min="1" max="64" step="1" placeholder="off" value="" /><span class="number-unit">bits</span></div>
+            <p class="control-note">Set any limit from 1–64. Buckets beyond the limit are pooled into one overflow bucket.</p>
+            <div class="merge-summary" id="length-limit-summary">No code-length limit · all Huffman code lengths are allowed.</div>
+            <details class="merge-details" id="length-limit-details" hidden>
+              <summary>Preview bins pooled by code-length limit</summary>
+              <ul id="length-limited-bin-preview"></ul>
+              <p id="length-limited-preview-note"></p>
+            </details>
+
+            <div class="control-rule"></div>
+            <div class="section-kicker">RECONSTRUCTION RULE</div>
+            <div class="formula-box"><span class="formula-label">for value <i>x</i></span><code>k = floor(x / Δ)</code><code class="formula-output">x̂ = (k + 0.5) · Δ</code></div>
+            <p class="control-note">Bins are half-open intervals <code>[kΔ, (k+1)Δ)</code>, including for negative values.</p>
+
+            <div class="control-rule"></div>
+            <div class="section-kicker" id="coding-method-kicker">HUFFMAN CODING</div>
+            <div class="method-line"><span class="method-dot"></span><span id="coding-method-summary">Frequency-weighted, optimal binary prefix codes</span></div>
+            <p class="control-note method-note" id="coding-method-detail">Each output bucket is a symbol. Pooled source bins share a code.</p>
+            <div class="source-note"><span class="source-mark">i</span><span id="source-note">Choose full model or a layer to update the analysis.</span></div>
+          </aside>
+
+          <section class="results-column">
+            <div class="metrics-grid">
+              <article class="metric-card panel"><div class="metric-top"><span>MEAN ABSOLUTE ERROR</span><span class="metric-glyph">↕</span></div><div class="metric-value" id="mae">—</div><div class="metric-foot">average distance to bin midpoint</div></article>
+              <article class="metric-card panel"><div class="metric-top"><span>ROOT MEAN SQUARED ERROR</span><span class="metric-glyph">⌁</span></div><div class="metric-value" id="rmse">—</div><div class="metric-foot">penalizes larger reconstruction misses</div></article>
+              <article class="metric-card panel"><div class="metric-top"><span>OUTPUT BUCKETS</span><span class="metric-glyph">▦</span></div><div class="metric-value" id="occupied-bins">—</div><div class="metric-foot" id="bin-foot">distinct symbols in the stream</div></article>
+            </div>
+
+            <article class="comparison-card panel">
+              <div class="card-heading"><div><div class="section-kicker">POOLING COMPARISON</div><h2>Current settings vs. no K/L pooling</h2><p>Same selected scope, bin width, and coding method. The baseline uses K = 0 and leaves the code-length limit off.</p></div></div>
+              <div class="comparison-scroll"><table class="comparison-table"><thead><tr><th>METRIC</th><th>CURRENT SETTINGS</th><th>NO K/L POOLING</th></tr></thead><tbody id="comparison-rows"><tr><td colspan="3" class="loading-cell">Waiting for analysis…</td></tr></tbody></table></div>
+            </article>
+
+            <article class="chart-card panel">
+              <div class="card-heading chart-heading"><div><div class="section-kicker">02 / DISTRIBUTION</div><h2>Bin frequency</h2><p>Occupied bins are evenly spaced in value order; empty ranges are omitted.</p></div><div class="chart-heading-actions"><button id="open-bpe-view" class="secondary-button" type="button">Explore BPE merges</button><button id="open-bin-width-sweep" class="secondary-button" type="button" disabled>Explore bin-width trade-offs</button><div class="legend"><span class="legend-normal"></span> Regular bin <span class="legend-merged"></span> Shared bucket</div></div></div>
+              <div class="chart-wrap"><canvas id="histogram" aria-label="Frequency of occupied quantization bins"></canvas><div class="chart-tooltip" id="chart-tooltip"></div></div>
+              <div class="chart-axis"><span id="axis-min">—</span><span>OCCUPIED BINS · VALUE ORDER →</span><span id="axis-max">—</span></div>
+            </article>
+
+            <div class="lower-grid">
+              <article class="size-card panel">
+                <div class="card-heading"><div><div class="section-kicker">03 / ENTROPY CODING</div><h2 id="storage-heading">Huffman storage</h2></div><span class="huffman-badge" id="coding-badge">H</span></div>
+                <div class="storage-total"><strong id="total-size">—</strong><span id="size-vs-fp32">estimated total</span></div>
+                <div class="storage-breakdown">
+                  <div class="storage-row"><span><i class="dot payload-dot"></i> <span id="payload-label">Huffman payload</span></span><strong id="payload-size">—</strong></div>
+                  <div class="storage-row"><span><i class="dot table-dot"></i> <span id="table-label">Tree + bin table*</span></span><strong id="table-size">—</strong></div>
+                  <div class="storage-row"><span><i class="dot baseline-dot"></i> FP32 reference</span><strong id="fp32-size">—</strong></div>
+                </div>
+                <div class="bar-comparison"><div class="comparison-track"><span id="huffman-bar"></span><i></i></div><div class="comparison-labels"><span id="storage-estimate-label">Huffman estimate</span><span>32-bit original</span></div></div>
+                <div class="coding-stats"><div title="Weighted average code length across the original selected weights"><span>Average code bits / original weight</span><strong id="huffman-rate">—</strong></div><div><span>Entropy lower bound / weight</span><strong id="entropy-rate">—</strong></div></div>
+                <p class="estimate-note" id="estimate-note">* Estimated total size includes payload and code-table metadata. Tensor-shape metadata, container framing, and byte padding are excluded.</p>
+              </article>
+
+              <article class="table-card panel">
+                <div class="card-heading table-heading"><div><div class="section-kicker">04 / SYMBOL MAP</div><h2>Bin frequency details</h2><button id="review-huffman-codes" class="secondary-button symbol-review-button" type="button" disabled>Review Huffman codes</button></div><span class="table-count" id="table-count">ALL BINS</span></div>
+                <div class="frequency-toolbar">
+                  <label for="frequency-order">Frequency order</label>
+                  <select id="frequency-order" aria-label="Sort bins by frequency">
+                    <option value="desc">Descending · most → least</option>
+                    <option value="asc">Ascending · least → most</option>
+                  </select>
+                </div>
+                <div class="table-scroll" id="frequency-scroll"><table><thead><tr><th>#</th><th>BIN / BUCKET</th><th>COUNT</th><th>CODE</th><th>BITS</th></tr></thead><tbody id="frequency-rows"><tr><td colspan="5" class="loading-cell">Waiting for analysis…</td></tr></tbody></table></div>
+                <div class="table-foot" id="table-foot">—</div>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section id="real-model-view" class="scale-view" hidden>
+          <article class="panel scale-controls">
+            <div class="card-heading"><div><div class="section-kicker">REAL CHECKPOINT ANALYSIS · NO INFERENCE</div><h2>Quantize the actual model weights</h2><p>Analyze every checkpoint value or a selected tensor. Checkpoint files download on the first analysis if they are not cached.</p></div><span class="scale-mark">Q</span></div>
+            <div class="scale-control-grid real-model-controls">
+              <label class="scale-field">Qwen checkpoint
+                <select id="real-model-select"><option value="">Loading available models…</option></select>
+              </label>
+              <label class="scale-field">Weight scope
+                <select id="real-tensor-scope" disabled><option value="__all__">Whole model</option></select>
+              </label>
+              <label class="scale-field">Bin width Δ
+                <input id="real-bin-width" type="number" min="0.00001" max="1" step="any" value="0.00035712" />
+              </label>
+              <label class="scale-field">Entropy code
+                <select id="real-coding-method"><option value="huffman">Huffman</option><option value="unary">Unary rank code</option></select>
+              </label>
+              <label class="scale-field">Merge rare bins K
+                <input id="real-merge-rare-bins" type="number" min="0" max="100000" step="1" value="0" />
+              </label>
+              <label class="scale-field">Max code length L
+                <input id="real-max-code-length" type="number" min="1" max="64" step="1" placeholder="off" />
+              </label>
+              <button id="run-real-analysis" class="primary-button" type="button">Analyze real checkpoint</button>
+            </div>
+            <p id="real-model-cache-status" class="scale-method-note">Loading model availability…</p>
+            <div id="real-analysis-progress-wrap" class="real-progress-wrap" hidden>
+              <progress id="real-analysis-progress" max="1" value="0"></progress>
+              <p id="real-analysis-stage" role="status" aria-live="polite">Waiting to start…</p>
+            </div>
+          </article>
+          <p id="real-method-note" class="scale-method-note">Select a real checkpoint and start an analysis. Weights are streamed in bounded CPU chunks; the model is never run.</p>
+          <div id="real-results" class="scale-results" hidden>
+            <p id="real-model-meta" class="real-model-meta"></p>
+            <div class="metrics-grid real-metrics-grid">
+              <article class="metric-card panel"><div class="metric-top"><span>MEAN ABSOLUTE ERROR</span><span class="metric-glyph">↕</span></div><div class="metric-value" id="real-mae">—</div><div class="metric-foot">exact across selected real weights</div></article>
+              <article class="metric-card panel"><div class="metric-top"><span>ROOT MEAN SQUARED ERROR</span><span class="metric-glyph">⌁</span></div><div class="metric-value" id="real-rmse">—</div><div class="metric-foot">exact across selected real weights</div></article>
+              <article class="metric-card panel"><div class="metric-top"><span>MAX ABSOLUTE ERROR</span><span class="metric-glyph">!</span></div><div class="metric-value" id="real-max-error">—</div><div class="metric-foot">exact across selected real weights</div></article>
+              <article class="metric-card panel"><div class="metric-top"><span>OUTPUT BINS</span><span class="metric-glyph">▦</span></div><div class="metric-value" id="real-occupied-bins">—</div><div class="metric-foot" id="real-bin-foot">—</div></article>
+            </div>
+            <div class="lower-grid real-lower-grid">
+              <article class="size-card panel">
+                <div class="card-heading"><div><div class="section-kicker">ESTIMATED STORAGE</div><h2 id="real-storage-heading">Huffman storage</h2></div><span class="huffman-badge" id="real-coding-badge">H</span></div>
+                <div class="storage-total"><strong id="real-total-size">—</strong><span id="real-size-vs-source">estimated total</span></div>
+                <div class="storage-breakdown">
+                  <div class="storage-row"><span><i class="dot payload-dot"></i> Payload</span><strong id="real-payload-size">—</strong></div>
+                  <div class="storage-row"><span><i class="dot table-dot"></i> Estimated code table</span><strong id="real-table-size">—</strong></div>
+                  <div class="storage-row"><span><i class="dot baseline-dot"></i> FP32 reference</span><strong id="real-fp32-size">—</strong></div>
+                  <div class="storage-row"><span><i class="dot baseline-dot"></i> Source checkpoint weights</span><strong id="real-source-size">—</strong></div>
+                  <div class="storage-row"><span><i class="dot baseline-dot"></i> Fixed-width symbol payload</span><strong id="real-fixed-size">—</strong></div>
+                </div>
+                <div class="coding-stats"><div><span>Average code bits / weight</span><strong id="real-code-rate">—</strong></div><div><span>Entropy lower bound / weight</span><strong id="real-entropy-rate">—</strong></div></div>
+              </article>
+              <article class="table-card panel">
+                <div class="card-heading table-heading"><div><div class="section-kicker">MOST FREQUENT SOURCE BINS</div><h2>Real checkpoint symbol details</h2></div><span class="table-count" id="real-table-count">—</span></div>
+                <div class="table-scroll real-bin-scroll"><table><thead><tr><th>RANK</th><th>INPUT BIN</th><th>COUNT</th><th>CODE BITS</th><th>STATUS</th></tr></thead><tbody id="real-bin-rows"></tbody></table></div>
+                <div class="table-foot" id="real-bin-footnote"></div>
+              </article>
+            </div>
+          </div>
+        </section>
+        <footer class="footer"><span>Quantization Lab <span class="footer-separator">·</span> Fixed-width midpoint quantization</span><span id="status">Ready</span></footer>
+      </main>
+    </div>
+
+    <dialog id="huffman-dialog" class="huffman-dialog" aria-labelledby="huffman-dialog-title">
+      <div class="huffman-dialog-shell">
+        <header class="huffman-dialog-header">
+          <div>
+            <div class="section-kicker">READ-ONLY CODE PREVIEW</div>
+            <h2 id="huffman-dialog-title">Huffman code map</h2>
+            <p id="huffman-preview-config" class="huffman-preview-config"></p>
+          </div>
+          <button id="close-huffman-dialog" class="dialog-close" type="button" aria-label="Close Huffman code preview">×</button>
+        </header>
+
+        <section class="huffman-summary-grid" aria-label="Huffman coding summary">
+          <article><span>OUTPUT SYMBOLS</span><strong id="huffman-preview-symbols">—</strong></article>
+          <article><span>HUFFMAN PAYLOAD</span><strong id="huffman-preview-payload">—</strong></article>
+          <article><span>AVERAGE CODE RATE</span><strong id="huffman-preview-rate">—</strong></article>
+          <article><span>ESTIMATED TREE + TABLE</span><strong id="huffman-preview-table-size">—</strong></article>
+          <article><span>LONGEST CODE</span><strong id="huffman-preview-longest">—</strong></article>
+        </section>
+
+        <div class="huffman-table-heading">
+          <div>
+            <h3>Assigned prefix codes</h3>
+            <p>Each source bin shows the code used by its output bucket. Pooled bins share a code.</p>
+          </div>
+          <label class="huffman-search-label" for="huffman-code-search">Find a bin or code
+            <input id="huffman-code-search" type="search" placeholder="Bin index or bit pattern" autocomplete="off" />
+          </label>
+        </div>
+
+        <div class="huffman-code-scroll" id="huffman-code-scroll" tabindex="0" aria-label="Huffman code map table">
+          <table class="huffman-code-table">
+            <thead><tr><th>INPUT BIN</th><th>VALUE INTERVAL</th><th>FREQUENCY</th><th>HUFFMAN CODE</th><th>LENGTH</th><th>PAYLOAD BITS</th></tr></thead>
+            <tbody id="huffman-code-rows"><tr><td colspan="6" class="loading-cell">Preparing the selected Huffman map…</td></tr></tbody>
+          </table>
+        </div>
+        <div class="huffman-table-foot" id="huffman-code-foot">—</div>
+        <p class="huffman-preview-note" id="huffman-preview-note">This read-only map uses the current scope, bin width, K and L. The dashboard analyzes reconstruction and estimated coding storage; it does not write a Huffman-coded bitstream.</p>
+      </div>
+    </dialog>
+
+    <dialog id="bpe-dialog" class="bpe-dialog" aria-labelledby="bpe-dialog-title">
+      <div class="bpe-dialog-shell">
+        <header class="huffman-dialog-header">
+          <div>
+            <div class="section-kicker">QUANTIZED WEIGHTS · BPE + HUFFMAN</div>
+            <h2 id="bpe-dialog-title">BPE + Huffman analysis</h2>
+            <p id="bpe-config" class="huffman-preview-config">Preparing the selected layer or whole model…</p>
+          </div>
+          <button id="close-bpe-dialog" class="dialog-close" type="button" aria-label="Close BPE details">×</button>
+        </header>
+
+        <p id="bpe-loading" class="sweep-loading" role="status" aria-live="polite">Counting bins and learning frequent ordered pairs…</p>
+        <section id="bpe-content" hidden>
+          <section class="huffman-summary-grid bpe-summary-grid" aria-label="BPE summary">
+            <article><span>WEIGHTS IN SEQUENCE</span><strong id="bpe-weight-count">—</strong></article>
+            <article><span>ORIGINAL OCCUPIED BINS</span><strong id="bpe-original-bin-count">—</strong></article>
+            <article><span>PAIR MERGES LEARNED</span><strong id="bpe-merge-count">—</strong></article>
+            <article><span>BPE SYMBOL VOCABULARY</span><strong id="bpe-vocabulary-count">—</strong></article>
+            <article><span>FINAL SYMBOL TYPES</span><strong id="bpe-final-symbol-count">—</strong></article>
+            <article><span>SYMBOL OCCURRENCES</span><strong id="bpe-final-sequence-length">—</strong></article>
+          </section>
+          <div class="bpe-parameter-row">
+            <label for="bpe-merge-limit">BPE merge rules to apply
+              <input id="bpe-merge-limit" type="number" min="0" max="1000" step="1" value="100" />
+            </label>
+            <button id="bpe-run-analysis" class="primary-button" type="button">Run BPE + Huffman</button>
+            <span>Uses the selected layer or whole model. Merge candidates must occur at least twice.</span>
+          </div>
+          <section class="bpe-results-grid" aria-label="BPE plus Huffman metrics">
+            <article><span>QUANTIZATION MAE</span><strong id="bpe-mae">—</strong></article>
+            <article><span>QUANTIZATION RMSE</span><strong id="bpe-rmse">—</strong></article>
+            <article><span>MAX ABS. ERROR</span><strong id="bpe-max-error">—</strong></article>
+            <article><span>BPE + HUFFMAN BITS / WEIGHT</span><strong id="bpe-bits-per-weight">—</strong></article>
+            <article><span>BASELINE HUFFMAN BITS / WEIGHT</span><strong id="bpe-baseline-bits-per-weight">—</strong></article>
+            <article><span>TOTAL BITS VS. BASELINE</span><strong id="bpe-total-saved">—</strong></article>
+          </section>
+          <div class="bpe-explainer"><strong>How to read this:</strong> original symbols are scalar bins with value intervals. Each merge creates a new symbol that means “left symbol followed by right symbol.” New symbols expand recursively back to original bin IDs. The BPE vocabulary counts all original and created symbol IDs; final symbol types counts those still present in the compressed sequence. These are sequence codes, not new scalar intervals or midpoint values.</div>
+          <div class="bpe-table-toolbar">
+            <div class="bpe-tabs" role="tablist" aria-label="BPE detail tables">
+              <button class="bpe-tab active" type="button" data-bpe-table="bins" aria-selected="true">Original bins</button>
+              <button class="bpe-tab" type="button" data-bpe-table="merges" aria-selected="false">Merge history</button>
+              <button class="bpe-tab" type="button" data-bpe-table="symbols" aria-selected="false">Final symbols</button>
+            </div>
+            <label class="huffman-search-label" for="bpe-search">Search this table
+              <input id="bpe-search" type="search" placeholder="Bin or symbol ID" autocomplete="off" />
+            </label>
+          </div>
+          <div class="bpe-table-scroll"><table class="bpe-table"><thead id="bpe-table-head"></thead><tbody id="bpe-table-rows"></tbody></table></div>
+          <div class="bpe-pagination"><span id="bpe-page-label">—</span><div><button id="bpe-prev-page" class="secondary-button" type="button">Previous</button><button id="bpe-next-page" class="secondary-button" type="button">Next</button></div></div>
+          <p id="bpe-footnote" class="huffman-preview-note">Midpoint reconstruction follows each merged symbol back to its original bin IDs, so the quantization errors are unchanged. The size estimate includes Huffman and BPE merge-rule metadata.</p>
+        </section>
+      </div>
+    </dialog>
+
+    <dialog id="bin-width-sweep-dialog" class="bin-width-sweep-dialog" aria-labelledby="bin-width-sweep-title">
+      <div class="bin-width-sweep-shell">
+        <header class="huffman-dialog-header">
+          <div>
+            <div class="section-kicker">QUANTIZATION TRADE-OFFS</div>
+            <h2 id="bin-width-sweep-title">Bin-width sweep</h2>
+            <p id="bin-width-sweep-config" class="huffman-preview-config">Preparing selected scope…</p>
+          </div>
+          <button id="close-bin-width-sweep" class="dialog-close" type="button" aria-label="Close bin-width sweep">×</button>
+        </header>
+
+        <p id="bin-width-sweep-loading" class="sweep-loading" role="status" aria-live="polite">Calculating the selected scope at several bin widths…</p>
+        <section id="bin-width-sweep-content" hidden>
+          <div class="sweep-inspector" id="sweep-inspector" aria-live="polite">Move over a chart or use the slider to inspect a width.</div>
+          <label class="sweep-point-control" for="sweep-point-index">Inspect width
+            <input id="sweep-point-index" type="range" min="0" max="16" value="8" step="1" />
+          </label>
+          <div class="sweep-chart-grid">
+            <article class="sweep-chart-card"><h3>Mean absolute error</h3><svg id="sweep-chart-mae" class="sweep-chart" role="img" aria-label="Mean absolute error across bin widths"></svg></article>
+            <article class="sweep-chart-card"><h3>Mean squared error</h3><svg id="sweep-chart-mse" class="sweep-chart" role="img" aria-label="Mean squared error across bin widths"></svg></article>
+            <article class="sweep-chart-card"><h3>Occupied input bins</h3><svg id="sweep-chart-bins" class="sweep-chart" role="img" aria-label="Occupied input bins across bin widths"></svg></article>
+            <article class="sweep-chart-card"><h3>Average code bits per weight</h3><svg id="sweep-chart-rate" class="sweep-chart" role="img" aria-label="Average code bits per weight across bin widths"></svg></article>
+          </div>
+          <div class="sweep-x-axis-label">BIN WIDTH Δ · LOG SCALE</div>
+          <p class="sweep-chart-note">All four plots share the same logarithmic bin-width axis. Occupied input bins are counted before K/L pooling; code rate uses the selected coding method and current K/L settings. This sweep is an analysis preview and does not modify the model.</p>
+        </section>
+      </div>
+    </dialog>
+
+    <script src="/static/app.js?v=5" defer></script>
+    <script src="/static/real-models.js?v=5" defer></script>
+  </body>
+</html>

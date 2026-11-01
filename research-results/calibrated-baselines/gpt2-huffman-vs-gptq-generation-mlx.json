@@ -1,0 +1,407 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "status": "complete",
+  "runtime": "MLX/Metal",
+  "prompt_tokens": 128,
+  "max_new_tokens": 64,
+  "measured_repeats": 3,
+  "warmups_per_model": 1,
+  "sampling": "greedy argmax",
+  "tokenization_in_timing": false,
+  "decode_definition": "elapsed from first generated-token yield to stream completion; throughput uses remaining tokens",
+  "prefill_definition": "prompt_tokens / MLX stream_generate prompt_tps; includes first-token work per MLX timing",
+  "prompt_token_ids": [
+    464,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326,
+    8161,
+    15558,
+    6067,
+    13,
+    383,
+    2050,
+    286,
+    3303,
+    4981,
+    2523,
+    326
+  ],
+  "current_model": "gptq_w4_g128",
+  "warmups": {
+    "dense_fp32": {
+      "prompt_tokens": 128,
+      "generated_tokens": 64,
+      "ttft_ms": 374.56208298681304,
+      "prompt_processing_ms": 373.7011670018547,
+      "prompt_tokens_per_second": 342.5196689293848,
+      "decode_ms_after_first_token": 375.80275000073016,
+      "decode_tokens_per_second": 167.64113620743223,
+      "end_to_end_ms": 750.3648329875432,
+      "finish_reason": "length"
+    },
+    "huffman_fp16": {
+      "prompt_tokens": 128,
+      "generated_tokens": 64,
+      "ttft_ms": 233.5403749893885,
+      "prompt_processing_ms": 231.91570898052308,
+      "prompt_tokens_per_second": 551.9246650547066,
+      "decode_ms_after_first_token": 219.9841249966994,
+      "decode_tokens_per_second": 286.3843015987869,
+      "end_to_end_ms": 453.5244999860879,
+      "finish_reason": "length"
+    },
+    "gptq_w4_g128": {
+      "prompt_tokens": 128,
+      "generated_tokens": 64,
+      "ttft_ms": 178.88816699269228,
+      "prompt_processing_ms": 178.66820801282302,
+      "prompt_tokens_per_second": 716.4117300085835,
+      "decode_ms_after_first_token": 105.49616700154729,
+      "decode_tokens_per_second": 597.178094622869,
+      "end_to_end_ms": 284.38433399423957,
+      "finish_reason": "length"
+    }
+  },
+  "trials_done": 2,
+  "runs": {
+    "dense_fp32": [
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 24.707541015231982,
+        "prompt_processing_ms": 24.370750004891306,
+        "prompt_tokens_per_second": 5252.197818052784,
+        "decode_ms_after_first_token": 387.18687498476356,
+        "decode_tokens_per_second": 162.71212706391236,
+        "end_to_end_ms": 411.89441599999554,
+        "finish_reason": "length"
+      },
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 22.678166977129877,
+        "prompt_processing_ms": 22.361917013768107,
+        "prompt_tokens_per_second": 5724.017306798479,
+        "decode_ms_after_first_token": 373.7834159983322,
+        "decode_tokens_per_second": 168.5468035860668,
+        "end_to_end_ms": 396.4615829754621,
+        "finish_reason": "length"
+      },
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 25.555540982168168,
+        "prompt_processing_ms": 25.20462500979193,
+        "prompt_tokens_per_second": 5078.433023711813,
+        "decode_ms_after_first_token": 376.9422500045039,
+        "decode_tokens_per_second": 167.1343554596155,
+        "end_to_end_ms": 402.49779098667204,
+        "finish_reason": "length"
+      }
+    ],
+    "huffman_fp16": [
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 17.09404101711698,
+        "prompt_processing_ms": 16.94487500935793,
+        "prompt_tokens_per_second": 7553.906412960325,
+        "decode_ms_after_first_token": 217.35058398917317,
+        "decode_tokens_per_second": 289.8542936656577,
+        "end_to_end_ms": 234.44462500629015,
+        "finish_reason": "length"
+      },
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 15.348125016316772,
+        "prompt_processing_ms": 15.223583992337806,
+        "prompt_tokens_per_second": 8408.006949245577,
+        "decode_ms_after_first_token": 211.9182079914026,
+        "decode_tokens_per_second": 297.2845070611199,
+        "end_to_end_ms": 227.26633300771937,
+        "finish_reason": "length"
+      },
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 16.0551670123823,
+        "prompt_processing_ms": 15.903084015008062,
+        "prompt_tokens_per_second": 8048.753303397241,
+        "decode_ms_after_first_token": 210.3895409964025,
+        "decode_tokens_per_second": 299.4445432108113,
+        "end_to_end_ms": 226.4447080087848,
+        "finish_reason": "length"
+      }
+    ],
+    "gptq_w4_g128": [
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 16.067666991148144,
+        "prompt_processing_ms": 15.937666990794241,
+        "prompt_tokens_per_second": 8031.288398354295,
+        "decode_ms_after_first_token": 106.73270799452439,
+        "decode_tokens_per_second": 590.2595482092709,
+        "end_to_end_ms": 122.80037498567253,
+        "finish_reason": "length"
+      },
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 16.458416008390486,
+        "prompt_processing_ms": 16.30666700657457,
+        "prompt_tokens_per_second": 7849.550122559845,
+        "decode_ms_after_first_token": 106.6303749976214,
+        "decode_tokens_per_second": 590.826019334597,
+        "end_to_end_ms": 123.08879100601189,
+        "finish_reason": "length"
+      },
+      {
+        "prompt_tokens": 128,
+        "generated_tokens": 64,
+        "ttft_ms": 16.24320901464671,
+        "prompt_processing_ms": 16.095165978185833,
+        "prompt_tokens_per_second": 7952.698355113672,
+        "decode_ms_after_first_token": 104.99058300047182,
+        "decode_tokens_per_second": 600.0538162524241,
+        "end_to_end_ms": 121.23379201511852,
+        "finish_reason": "length"
+      }
+    ]
+  },
+  "summary": {
+    "dense_fp32": {
+      "ttft_ms_median": 24.707541015231982,
+      "ttft_ms_runs": [
+        24.707541015231982,
+        22.678166977129877,
+        25.555540982168168
+      ],
+      "prompt_processing_ms_median": 24.370750004891306,
+      "prompt_processing_ms_runs": [
+        24.370750004891306,
+        22.361917013768107,
+        25.20462500979193
+      ],
+      "prompt_tokens_per_second_median": 5252.197818052784,
+      "prompt_tokens_per_second_runs": [
+        5252.197818052784,
+        5724.017306798479,
+        5078.433023711813
+      ],
+      "decode_ms_after_first_token_median": 376.9422500045039,
+      "decode_ms_after_first_token_runs": [
+        387.18687498476356,
+        373.7834159983322,
+        376.9422500045039
+      ],
+      "decode_tokens_per_second_median": 167.1343554596155,
+      "decode_tokens_per_second_runs": [
+        162.71212706391236,
+        168.5468035860668,
+        167.1343554596155
+      ],
+      "end_to_end_ms_median": 402.49779098667204,
+      "end_to_end_ms_runs": [
+        411.89441599999554,
+        396.4615829754621,
+        402.49779098667204
+      ]
+    },
+    "huffman_fp16": {
+      "ttft_ms_median": 16.0551670123823,
+      "ttft_ms_runs": [
+        17.09404101711698,
+        15.348125016316772,
+        16.0551670123823
+      ],
+      "prompt_processing_ms_median": 15.903084015008062,
+      "prompt_processing_ms_runs": [
+        16.94487500935793,
+        15.223583992337806,
+        15.903084015008062
+      ],
+      "prompt_tokens_per_second_median": 8048.753303397241,
+      "prompt_tokens_per_second_runs": [
+        7553.906412960325,
+        8408.006949245577,
+        8048.753303397241
+      ],
+      "decode_ms_after_first_token_median": 211.9182079914026,
+      "decode_ms_after_first_token_runs": [
+        217.35058398917317,
+        211.9182079914026,
+        210.3895409964025
+      ],
+      "decode_tokens_per_second_median": 297.2845070611199,
+      "decode_tokens_per_second_runs": [
+        289.8542936656577,
+        297.2845070611199,
+        299.4445432108113
+      ],
+      "end_to_end_ms_median": 227.26633300771937,
+      "end_to_end_ms_runs": [
+        234.44462500629015,
+        227.26633300771937,
+        226.4447080087848
+      ]
+    },
+    "gptq_w4_g128": {
+      "ttft_ms_median": 16.24320901464671,
+      "ttft_ms_runs": [
+        16.067666991148144,
+        16.458416008390486,
+        16.24320901464671
+      ],
+      "prompt_processing_ms_median": 16.095165978185833,
+      "prompt_processing_ms_runs": [
+        15.937666990794241,
+        16.30666700657457,
+        16.095165978185833
+      ],
+      "prompt_tokens_per_second_median": 7952.698355113672,
+      "prompt_tokens_per_second_runs": [
+        8031.288398354295,
+        7849.550122559845,
+        7952.698355113672
+      ],
+      "decode_ms_after_first_token_median": 106.6303749976214,
+      "decode_ms_after_first_token_runs": [
+        106.73270799452439,
+        106.6303749976214,
+        104.99058300047182
+      ],
+      "decode_tokens_per_second_median": 590.826019334597,
+      "decode_tokens_per_second_runs": [
+        590.2595482092709,
+        590.826019334597,
+        600.0538162524241
+      ],
+      "end_to_end_ms_median": 122.80037498567253,
+      "end_to_end_ms_runs": [
+        122.80037498567253,
+        123.08879100601189,
+        121.23379201511852
+      ]
+    }
+  },
+  "huffman_decode_install_seconds": 28.53294800000731,
+  "gptq_checkpoint_load_seconds": 41.212875666009495,
+  "total_seconds": 102.5751529999834
+}

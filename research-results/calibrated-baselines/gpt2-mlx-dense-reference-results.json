@@ -1,0 +1,14 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "dense FP32-source weights loaded in MLX",
+  "evaluation_dataset": "WikiText-2 raw test split",
+  "tokens": 286177,
+  "predictions_scored": 286176,
+  "sequence_length": 1024,
+  "evaluation_token_ids_sha256": "7892b371a41e15356847c03c77abbd2b9d0dee5714aeb92a0013412fa045405e",
+  "perplexity": 29.018028870543287,
+  "evaluation_seconds": 48.75617329200031,
+  "runtime": "MLX/Metal",
+  "status": "complete"
+}

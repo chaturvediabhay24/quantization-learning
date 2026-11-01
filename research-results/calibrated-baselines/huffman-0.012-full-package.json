@@ -1,0 +1,23 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "bin_width": 0.012,
+  "perplexity": 29.738434110795414,
+  "artifact": "research-results/gpt2-huffman-sweep/gpt2-huffman-0.012-full.zip",
+  "artifact_bytes": 89033239,
+  "weights": 124439808,
+  "effective_bits_per_weight": 5.72377861592329,
+  "included_model_files": [
+    "config.json",
+    "tokenizer.json",
+    "tokenizer_config.json",
+    "vocab.json",
+    "merges.txt"
+  ],
+  "archive_manifest_model_id": "openai-community/gpt2",
+  "note": "Full-model package includes source config and tokenizer files. The Huffman stream decoder round-trip passed, and decoded midpoint weights were evaluated in MLX with float16 weights.",
+  "decoder_round_trip_validated": true,
+  "decoded_mlx_fp16_perplexity": 29.742457738539738,
+  "decoded_mlx_evaluation_seconds": 36.089983915997436,
+  "decoded_mlx_total_decode_load_eval_seconds": 74.48663425000268
+}

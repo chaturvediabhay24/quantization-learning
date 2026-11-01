@@ -1,0 +1,15 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "gptq",
+  "bits": 4,
+  "group_size": 128,
+  "calibration_dataset": "wikitext-2-raw-v1 train split",
+  "calibration_samples": 128,
+  "calibration_sequence_length": 1024,
+  "calibration_seed": 2026,
+  "device": "mps",
+  "status": "failed_quantization",
+  "load_seconds": 0.1507303749967832,
+  "error": "ValueError('Device not in pool: mps:0')"
+}

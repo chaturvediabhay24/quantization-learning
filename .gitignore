@@ -1,0 +1,18 @@
+# Local environments and Python artifacts
+.venv*/
+**/.venv/
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.DS_Store
+
+# Downloaded model caches and generated run outputs
+custom-quantization/model-cache/
+custom-quantization/runs/
+
+# Model weights and packaged checkpoints (keep configs/tokenizers and reports)
+*.bin
+*.safetensors
+*.npz
+*.zip
+*.before-inference

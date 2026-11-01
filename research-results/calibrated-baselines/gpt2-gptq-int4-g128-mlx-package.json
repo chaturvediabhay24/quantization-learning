@@ -1,0 +1,39 @@
+{
+  "source_directory": "research-results/calibrated-baselines/gpt2-gptq-int4-g128-mlx",
+  "artifact": "research-results/calibrated-baselines/gpt2-gptq-int4-g128-mlx-full.zip",
+  "packaging": "ZIP_STORED",
+  "artifact_bytes": 86320207,
+  "weights": 124439808,
+  "effective_bits_per_weight": 5.549362917692705,
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 81
+    },
+    {
+      "path": "config.json",
+      "bytes": 1236
+    },
+    {
+      "path": "generation_config.json",
+      "bytes": 124
+    },
+    {
+      "path": "model.safetensors",
+      "bytes": 82745451
+    },
+    {
+      "path": "model.safetensors.index.json",
+      "bytes": 14523
+    },
+    {
+      "path": "tokenizer.json",
+      "bytes": 3557680
+    },
+    {
+      "path": "tokenizer_config.json",
+      "bytes": 314
+    }
+  ],
+  "note": "Package size uses the same uncompressed ZIP container mode as the full Huffman archive."
+}

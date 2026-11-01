@@ -1,0 +1,182 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "hardware": {
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "machine": "arm64",
+    "cpu_count": 10,
+    "mps_available": false
+  },
+  "workload": {
+    "prompt_tokens": 128,
+    "generated_tokens": 64,
+    "warmup_requests": 1,
+    "measured_requests": 3,
+    "aggregation": "median",
+    "selection": "greedy argmax",
+    "timing_scope": "model-side; excludes tokenization and queueing"
+  },
+  "results": [
+    {
+      "variant": "FP32 reference",
+      "execution_mode": "FP32",
+      "model_load_seconds": 0.9688246250007069,
+      "variant_setup_seconds": 0.0,
+      "timing": {
+        "ttft_ms": 41.88287499709986,
+        "prefill_ms": 41.837750002741814,
+        "prefill_tokens_per_second": 3059.4379475858905,
+        "decode_ms_per_token": 9.711095904802075,
+        "decode_tokens_per_second": 102.97498962043062,
+        "end_to_end_64_tokens_ms": 652.7112510084407,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "FP16",
+      "execution_mode": "fp16",
+      "model_load_seconds": 0.042187584011116996,
+      "variant_setup_seconds": 0.43974970799172297,
+      "timing": {
+        "ttft_ms": 6150.196999995387,
+        "prefill_ms": 6150.145249994239,
+        "prefill_tokens_per_second": 20.812516582453057,
+        "decode_ms_per_token": 53.83327579364136,
+        "decode_tokens_per_second": 18.57587124798594,
+        "end_to_end_64_tokens_ms": 9541.693374994793,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "BF16",
+      "execution_mode": "bf16",
+      "model_load_seconds": 0.5309163339989027,
+      "variant_setup_seconds": 0.3100786249997327,
+      "timing": {
+        "ttft_ms": 6199.538874992868,
+        "prefill_ms": 6199.4696670008125,
+        "prefill_tokens_per_second": 20.64692737853559,
+        "decode_ms_per_token": 53.67443519034644,
+        "decode_tokens_per_second": 18.630843463069247,
+        "end_to_end_64_tokens_ms": 9582.555375003722,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "INT8 per-channel RTN",
+      "execution_mode": "FP32",
+      "model_load_seconds": 0.5179562499979511,
+      "variant_setup_seconds": 0.7511154590029037,
+      "timing": {
+        "ttft_ms": 40.23083399806637,
+        "prefill_ms": 40.18629199708812,
+        "prefill_tokens_per_second": 3185.165727887381,
+        "decode_ms_per_token": 9.058457015762253,
+        "decode_tokens_per_second": 110.39407685657066,
+        "end_to_end_64_tokens_ms": 610.7039169874042,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "INT4 group-128 RTN",
+      "execution_mode": "FP32",
+      "model_load_seconds": 0.034921167010907084,
+      "variant_setup_seconds": 4.801956208990305,
+      "timing": {
+        "ttft_ms": 40.21116599324159,
+        "prefill_ms": 40.167165992897935,
+        "prefill_tokens_per_second": 3186.6823769103357,
+        "decode_ms_per_token": 9.172015206468853,
+        "decode_tokens_per_second": 109.02729416483287,
+        "end_to_end_64_tokens_ms": 618.0481240007794,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "Huffman bins 0.0003",
+      "execution_mode": "FP32 reconstructed; Huffman stream not decoded at runtime",
+      "model_load_seconds": 0.03516270899854135,
+      "variant_setup_seconds": 0.13665420899633318,
+      "timing": {
+        "ttft_ms": 39.82983299647458,
+        "prefill_ms": 39.79054199589882,
+        "prefill_tokens_per_second": 3216.8448475316786,
+        "decode_ms_per_token": 9.077255285875355,
+        "decode_tokens_per_second": 110.16545954767275,
+        "end_to_end_64_tokens_ms": 611.627791004139,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "Huffman bins 0.001",
+      "execution_mode": "FP32 reconstructed; Huffman stream not decoded at runtime",
+      "model_load_seconds": 0.03485895899939351,
+      "variant_setup_seconds": 0.12768016700283624,
+      "timing": {
+        "ttft_ms": 40.42795799614396,
+        "prefill_ms": 40.382499995757826,
+        "prefill_tokens_per_second": 3169.689841229403,
+        "decode_ms_per_token": 9.32117593650233,
+        "decode_tokens_per_second": 107.2826011237418,
+        "end_to_end_64_tokens_ms": 627.6620419957908,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "Huffman bins 0.002",
+      "execution_mode": "FP32 reconstructed; Huffman stream not decoded at runtime",
+      "model_load_seconds": 0.03521500001079403,
+      "variant_setup_seconds": 0.1287628330028383,
+      "timing": {
+        "ttft_ms": 40.04345799330622,
+        "prefill_ms": 39.99708300398197,
+        "prefill_tokens_per_second": 3200.233376700415,
+        "decode_ms_per_token": 9.24682474601829,
+        "decode_tokens_per_second": 108.14523119740134,
+        "end_to_end_64_tokens_ms": 623.1890839990228,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "Huffman bins 0.004",
+      "execution_mode": "FP32 reconstructed; Huffman stream not decoded at runtime",
+      "model_load_seconds": 0.03844474999641534,
+      "variant_setup_seconds": 0.1260317499982193,
+      "timing": {
+        "ttft_ms": 40.37962500296999,
+        "prefill_ms": 40.336875012144446,
+        "prefill_tokens_per_second": 3173.2750730308762,
+        "decode_ms_per_token": 9.152185190321198,
+        "decode_tokens_per_second": 109.26352332310103,
+        "end_to_end_64_tokens_ms": 616.9672919932054,
+        "samples": 3
+      },
+      "error": null
+    },
+    {
+      "variant": "Huffman bins 0.008",
+      "execution_mode": "FP32 reconstructed; Huffman stream not decoded at runtime",
+      "model_load_seconds": 0.03476562500873115,
+      "variant_setup_seconds": 0.12547541699314024,
+      "timing": {
+        "ttft_ms": 40.09854100877419,
+        "prefill_ms": 40.05650000181049,
+        "prefill_tokens_per_second": 3195.4863753501827,
+        "decode_ms_per_token": 9.02987566650919,
+        "decode_tokens_per_second": 110.74349602718112,
+        "end_to_end_64_tokens_ms": 608.7991669919575,
+        "samples": 3
+      },
+      "error": null
+    }
+  ],
+  "note": "INT8/INT4 and Huffman variants are reconstructed to FP32 for execution; these timings do not represent packed-kernel inference."
+}

@@ -1,0 +1,1066 @@
+{
+  "model": "openai-community/gpt2",
+  "revision": "607a30d783dfa663caf39e06633721c8d4cfcd7e",
+  "method": "GPTQ W4 group 128, dequantized MLX checkpoint",
+  "reference": "pinned source checkpoint, MLX FP32",
+  "status": "complete",
+  "weights_expected": 124439808,
+  "reference_tensors": 148,
+  "gptq_tensors": 248,
+  "quantized_modules": 50,
+  "tensors_done": 148,
+  "tensors_total": 148,
+  "weights_done": 124439808,
+  "partial_mae": 0.00980140278081899,
+  "partial_mse": 0.00021233041189720227,
+  "weights": 124439808,
+  "overall_mae": 0.00980140278081899,
+  "overall_mse": 0.00021233041189720227,
+  "overall_rmse": 0.014571561752166522,
+  "overall_max_abs_error": 1.4730689525604248,
+  "quantized_4bit_weight_count": 124318464,
+  "quantized_4bit_weight_mae": 0.009810969673626126,
+  "quantized_4bit_weight_mse": 0.00021253766205677033,
+  "quantized_4bit_weight_rmse": 0.014578671477770885,
+  "quantized_4bit_weight_max_abs_error": 1.4730689525604248,
+  "per_tensor": {
+    "model.wte.weight": {
+      "count": 38597376,
+      "mae": 0.002699197414352727,
+      "mse": 1.0306665450501576e-05,
+      "max_abs_error": 0.020260214805603027,
+      "quantized_4bit": true
+    },
+    "model.wpe.weight": {
+      "count": 786432,
+      "mae": 0.0028571424384911857,
+      "mse": 1.4299554701816911e-05,
+      "max_abs_error": 0.058577489107847214,
+      "quantized_4bit": true
+    },
+    "model.h.0.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.018643968635135226,
+      "mse": 0.0007279428342978159,
+      "max_abs_error": 0.43235069513320923,
+      "quantized_4bit": true
+    },
+    "model.h.0.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.01115977598561181,
+      "mse": 0.000483221270971828,
+      "max_abs_error": 0.6304157972335815,
+      "quantized_4bit": true
+    },
+    "model.h.0.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.01651816401216719,
+      "mse": 0.0004500410933461454,
+      "max_abs_error": 0.2911364734172821,
+      "quantized_4bit": true
+    },
+    "model.h.0.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.010006487369537354,
+      "mse": 0.0001913780320642723,
+      "max_abs_error": 0.5339397192001343,
+      "quantized_4bit": true
+    },
+    "model.h.0.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.0.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.01494996084107293,
+      "mse": 0.00040738674363604297,
+      "max_abs_error": 0.30895310640335083,
+      "quantized_4bit": true
+    },
+    "model.h.1.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.00956031597322888,
+      "mse": 0.00020642116821060577,
+      "max_abs_error": 1.0274174213409424,
+      "quantized_4bit": true
+    },
+    "model.h.1.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.013872416483031379,
+      "mse": 0.0003119538175976939,
+      "max_abs_error": 0.3230029046535492,
+      "quantized_4bit": true
+    },
+    "model.h.1.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.009466155535644956,
+      "mse": 0.00015838974569406774,
+      "max_abs_error": 0.3774726390838623,
+      "quantized_4bit": true
+    },
+    "model.h.1.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.1.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.01654675051018044,
+      "mse": 0.0005116395790267874,
+      "max_abs_error": 0.43966928124427795,
+      "quantized_4bit": true
+    },
+    "model.h.2.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.008323278692033555,
+      "mse": 0.0001203925736869375,
+      "max_abs_error": 0.38270390033721924,
+      "quantized_4bit": true
+    },
+    "model.h.2.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.013793162173695035,
+      "mse": 0.0003246933014856444,
+      "max_abs_error": 0.9796685576438904,
+      "quantized_4bit": true
+    },
+    "model.h.2.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.009849500324991014,
+      "mse": 0.00017773019822521342,
+      "max_abs_error": 0.9584881067276001,
+      "quantized_4bit": true
+    },
+    "model.h.2.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.2.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.01702561201872649,
+      "mse": 0.0007532637704301764,
+      "max_abs_error": 1.368409276008606,
+      "quantized_4bit": true
+    },
+    "model.h.3.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.008061299721399942,
+      "mse": 0.00010787805594089959,
+      "max_abs_error": 0.21740560233592987,
+      "quantized_4bit": true
+    },
+    "model.h.3.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.013049247364203135,
+      "mse": 0.0002662323208318816,
+      "max_abs_error": 0.6070657968521118,
+      "quantized_4bit": true
+    },
+    "model.h.3.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.009261017044385275,
+      "mse": 0.00015375755416850248,
+      "max_abs_error": 0.6385031938552856,
+      "quantized_4bit": true
+    },
+    "model.h.3.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.3.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.016276636609324702,
+      "mse": 0.0006045023048365558,
+      "max_abs_error": 1.4730689525604248,
+      "quantized_4bit": true
+    },
+    "model.h.4.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.009286668565538194,
+      "mse": 0.00013803307794862322,
+      "max_abs_error": 0.24976746737957,
+      "quantized_4bit": true
+    },
+    "model.h.4.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012897655367851257,
+      "mse": 0.0002589132119384077,
+      "max_abs_error": 0.22320783138275146,
+      "quantized_4bit": true
+    },
+    "model.h.4.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.009185771147410074,
+      "mse": 0.0001379433088004589,
+      "max_abs_error": 0.33051934838294983,
+      "quantized_4bit": true
+    },
+    "model.h.4.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.4.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.013966461022694906,
+      "mse": 0.00034051367806063756,
+      "max_abs_error": 0.4978691637516022,
+      "quantized_4bit": true
+    },
+    "model.h.5.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.009225680596298642,
+      "mse": 0.00013904770215352377,
+      "max_abs_error": 0.3156721889972687,
+      "quantized_4bit": true
+    },
+    "model.h.5.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.0123766561349233,
+      "mse": 0.00023480396096905073,
+      "max_abs_error": 0.13889628648757935,
+      "quantized_4bit": true
+    },
+    "model.h.5.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.009854151142968072,
+      "mse": 0.00015005457680672407,
+      "max_abs_error": 0.2715824246406555,
+      "quantized_4bit": true
+    },
+    "model.h.5.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.5.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.014020155977319789,
+      "mse": 0.00033115940513434234,
+      "max_abs_error": 0.41766226291656494,
+      "quantized_4bit": true
+    },
+    "model.h.6.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.010978609323501587,
+      "mse": 0.00019117034713013304,
+      "max_abs_error": 0.2041129469871521,
+      "quantized_4bit": true
+    },
+    "model.h.6.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012283305327097574,
+      "mse": 0.00022901343699130748,
+      "max_abs_error": 0.12588663399219513,
+      "quantized_4bit": true
+    },
+    "model.h.6.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.010854704512490166,
+      "mse": 0.00018289493810799386,
+      "max_abs_error": 0.3350287675857544,
+      "quantized_4bit": true
+    },
+    "model.h.6.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.6.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.014395689522778546,
+      "mse": 0.00034276175278204457,
+      "max_abs_error": 0.3741944134235382,
+      "quantized_4bit": true
+    },
+    "model.h.7.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.010989220605956184,
+      "mse": 0.00018965592607855797,
+      "max_abs_error": 0.2528180480003357,
+      "quantized_4bit": true
+    },
+    "model.h.7.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012176351414786445,
+      "mse": 0.0002231062131209506,
+      "max_abs_error": 0.1427038311958313,
+      "quantized_4bit": true
+    },
+    "model.h.7.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.011845318807495965,
+      "mse": 0.00021662530747966634,
+      "max_abs_error": 0.3982609510421753,
+      "quantized_4bit": true
+    },
+    "model.h.7.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.7.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.01386874031137537,
+      "mse": 0.0003069600228358198,
+      "max_abs_error": 0.34299272298812866,
+      "quantized_4bit": true
+    },
+    "model.h.8.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.011653200619750552,
+      "mse": 0.00021523278620507981,
+      "max_abs_error": 0.21757400035858154,
+      "quantized_4bit": true
+    },
+    "model.h.8.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012242548995547824,
+      "mse": 0.00022369840492804846,
+      "max_abs_error": 0.15133655071258545,
+      "quantized_4bit": true
+    },
+    "model.h.8.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.013659613827864328,
+      "mse": 0.00028700394452446036,
+      "max_abs_error": 0.3386552333831787,
+      "quantized_4bit": true
+    },
+    "model.h.8.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.8.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.013228981583206742,
+      "mse": 0.0002713386245347835,
+      "max_abs_error": 0.27839669585227966,
+      "quantized_4bit": true
+    },
+    "model.h.9.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.013164891137017144,
+      "mse": 0.0002724031089908547,
+      "max_abs_error": 0.29966211318969727,
+      "quantized_4bit": true
+    },
+    "model.h.9.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012244330512152778,
+      "mse": 0.00022410099498099752,
+      "max_abs_error": 0.21756213903427124,
+      "quantized_4bit": true
+    },
+    "model.h.9.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.015815243124961853,
+      "mse": 0.0003815364196068711,
+      "max_abs_error": 0.297601580619812,
+      "quantized_4bit": true
+    },
+    "model.h.9.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.9.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.01271315857216164,
+      "mse": 0.0002461972611921805,
+      "max_abs_error": 0.17711392045021057,
+      "quantized_4bit": true
+    },
+    "model.h.10.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.014056189192665948,
+      "mse": 0.00032043782994151115,
+      "max_abs_error": 0.43915224075317383,
+      "quantized_4bit": true
+    },
+    "model.h.10.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012224410971005758,
+      "mse": 0.00022223956572512785,
+      "max_abs_error": 0.17104768753051758,
+      "quantized_4bit": true
+    },
+    "model.h.10.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.01830732160144382,
+      "mse": 0.0005298821876446406,
+      "max_abs_error": 0.6291933059692383,
+      "quantized_4bit": true
+    },
+    "model.h.10.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.10.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.attn.c_attn.weight": {
+      "count": 1769472,
+      "mae": 0.012472580980371547,
+      "mse": 0.0002414851656390561,
+      "max_abs_error": 0.13311509788036346,
+      "quantized_4bit": true
+    },
+    "model.h.11.attn.c_attn.bias": {
+      "count": 2304,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.attn.c_proj.weight": {
+      "count": 589824,
+      "mae": 0.015715718269348145,
+      "mse": 0.0004868721589446068,
+      "max_abs_error": 0.9973607063293457,
+      "quantized_4bit": true
+    },
+    "model.h.11.attn.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.mlp.c_fc.weight": {
+      "count": 2359296,
+      "mae": 0.012430315216382345,
+      "mse": 0.00023220373421079584,
+      "max_abs_error": 0.30131685733795166,
+      "quantized_4bit": true
+    },
+    "model.h.11.mlp.c_fc.bias": {
+      "count": 3072,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.mlp.c_proj.weight": {
+      "count": 2359296,
+      "mae": 0.021020231975449458,
+      "mse": 0.0007261226160658731,
+      "max_abs_error": 0.6874736547470093,
+      "quantized_4bit": true
+    },
+    "model.h.11.mlp.c_proj.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.ln_1.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.ln_1.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.ln_2.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.h.11.ln_2.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.ln_f.weight": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    },
+    "model.ln_f.bias": {
+      "count": 768,
+      "mae": 0.0,
+      "mse": 0.0,
+      "max_abs_error": 0.0,
+      "quantized_4bit": false
+    }
+  },
+  "elapsed_seconds": 0.5567276669899002,
+  "note": "Packed 4-bit linear and embedding weights are dequantized with MLX's affine reconstruction; retained FP16/nonquantized tensors are compared in their stored dtype. Tied weights counted once."
+}
