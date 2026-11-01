@@ -410,3 +410,5 @@ With the proposed INT4 limit of `2^4 = 16` Huffman symbols, all 16 INT4
 quantized IDs are already covered. Therefore no INT4 IDs remain for a second
 quantization path; the result is effectively full Huffman coding, with a small
 extra metadata cost for the ESC format.
+
+# quantization-learning
